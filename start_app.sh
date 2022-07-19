@@ -1,0 +1,2 @@
+# PYTHONDONTWRITEBYTECODE=1 python -m app
+PYTHONDONTWRITEBYTECODE=1 python -m flask run
