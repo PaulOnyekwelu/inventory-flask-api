@@ -6,7 +6,6 @@ userid_mapping = {u.id: u for u in users}
 
 
 def authenticate(username, password):
-    print(username, password)
     user = User.find_by_username(username)
     if user and password == user.password:
         return user

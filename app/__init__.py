@@ -5,6 +5,10 @@ from flask_jwt import JWT, jwt_required
 
 from .routes.item import Item, ItemList
 from .auth_func import authenticate, identity
+from .routes.user import UserRegister
+
+# create db tables if not exist
+import app.create_tables
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
@@ -15,6 +19,7 @@ jwt = JWT(app, authenticate, identity)
 
 api.add_resource(Item, "/item/<string:name>")
 api.add_resource(ItemList, "/items")
+api.add_resource(UserRegister, "/register")
 
 if __name__ == "__main__":
     app.run()
