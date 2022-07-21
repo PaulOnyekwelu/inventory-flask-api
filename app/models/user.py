@@ -1,4 +1,5 @@
 import sqlite3
+from app.utils.constants import DB_URI
 
 
 class User():
@@ -9,7 +10,7 @@ class User():
 
     @classmethod
     def find_by_username(cls, username):
-        connection = sqlite3.connect("data.db")
+        connection = sqlite3.connect(DB_URI)
         cursor = connection.cursor()
 
         query = "SELECT * FROM users WHERE username=?"
@@ -22,7 +23,7 @@ class User():
 
     @classmethod
     def find_by_id(cls, _id):
-        connection = sqlite3.connect("data.db")
+        connection = sqlite3.connect(DB_URI)
         cursor = connection.cursor()
 
         query = "SELECT * FROM users WHERE id=?"
