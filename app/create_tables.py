@@ -1,7 +1,7 @@
 import sqlite3
-import app.utils.constants as constants
+from app.utils.constants import DB_URI
 
-connection = sqlite3.connect(constants.DB_URI)
+connection = sqlite3.connect(DB_URI)
 cursor = connection.cursor()
 
 users_query = """CREATE TABLE IF NOT EXISTS users (
@@ -10,7 +10,14 @@ users_query = """CREATE TABLE IF NOT EXISTS users (
         password TEXT
     )
     """
+items_query = """CREATE TABLE IF NOT EXISTS items (
+        name VARCHAR(50),
+        price real
+    )
+    """
+
 
 cursor.execute(users_query)
+cursor.execute(items_query)
 connection.commit()
 connection.close()

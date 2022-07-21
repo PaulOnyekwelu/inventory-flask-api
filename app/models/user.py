@@ -2,7 +2,7 @@ import sqlite3
 from app.utils.constants import DB_URI
 
 
-class User():
+class UserModel():
     def __init__(self, _id, username, password):
         self.id = _id
         self.username = username
@@ -16,7 +16,7 @@ class User():
         query = "SELECT * FROM users WHERE username=?"
         result = cursor.execute(query, (username, ))
         user = result.fetchone()
-        cursor.close()
+        connection.close()
 
         user = cls(*user) if user else None
         return user
@@ -29,7 +29,7 @@ class User():
         query = "SELECT * FROM users WHERE id=?"
         result = cursor.execute(query, (_id,))
         user = result.fetchone()
-        cursor.close()
+        connection.close()
 
         user = cls(*user) if user else None
         return user
