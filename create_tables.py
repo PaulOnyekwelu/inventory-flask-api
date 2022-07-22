@@ -1,5 +1,5 @@
 import sqlite3
-from app.utils.constants import DB_URI
+from utils.constants import DB_URI
 
 connection = sqlite3.connect(DB_URI)
 cursor = connection.cursor()

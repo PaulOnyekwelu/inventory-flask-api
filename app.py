@@ -3,12 +3,12 @@ from flask import Flask
 from flask_restful import Resource, Api
 from flask_jwt import JWT, jwt_required
 
-from .routes.item import Item, ItemList
-from .auth_func import authenticate, identity
-from .routes.user import UserRegister
+from routes.item import Item, ItemList
+from auth_func import authenticate, identity
+from routes.user import UserRegister
 
 # create db tables if not exist
-import app.create_tables
+import create_tables
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")

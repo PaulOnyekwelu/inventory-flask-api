@@ -1,5 +1,5 @@
 import sqlite3
-from app.utils.constants import DB_URI
+from utils.constants import DB_URI
 
 
 class UserModel():
