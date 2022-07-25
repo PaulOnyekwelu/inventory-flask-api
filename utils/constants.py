@@ -1,1 +1,1 @@
-DB_URI = "data.db"
+DB_NAME = "db.sqlite"

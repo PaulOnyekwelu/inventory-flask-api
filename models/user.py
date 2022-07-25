@@ -1,6 +1,7 @@
 import sqlite3
-from utils.constants import DB_URI
-from db import db
+from db import DBModel
+
+db = DBModel.db
 
 
 class UserModel(db.Model):
@@ -13,12 +14,14 @@ class UserModel(db.Model):
         self.username = username
         self.password = password
 
+    def save_user(self):
+        db.session.add(self)
+        db.session.commit()
+
     @classmethod
     def find_by_username(cls, username):
-        user = cls.query.filter_by(username=username).first()
-        return user
+        return cls.query.filter_by(username=username).first()
 
     @classmethod
     def find_by_id(cls, _id):
-        user = cls.query.filter_by(id=_id).first()
-        return user
+        return cls.query.filter_by(id=_id).first()

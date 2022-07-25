@@ -1,6 +1,7 @@
 import sqlite3
-from utils.constants import DB_URI
-from db import db
+from db import DBModel
+
+db = DBModel.db
 
 
 class ItemModel(db.Model):
