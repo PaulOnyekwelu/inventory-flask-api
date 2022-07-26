@@ -10,6 +10,8 @@ class Item(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument("price", required=True, type=float,
                         help="Field is required")
+    parser.add_argument("store_id", required=True,
+                        type=int, help="Field is required")
 
     @jwt_required()
     def get(self, name):
@@ -25,7 +27,7 @@ class Item(Resource):
         if ItemModel.find_item_by_name(name):
             return {"msg": "item already exist"}, 400
 
-        item = ItemModel(name, data['price'])
+        item = ItemModel(name, data['price'], data["store_id"])
         try:
             item.save_item()
         except Exception:
@@ -38,7 +40,7 @@ class Item(Resource):
         data = Item.parser.parse_args()
         item = ItemModel.find_item_by_name(name)
         if item is None:
-            item = ItemModel(name, data["price"])
+            item = ItemModel(name, data["price"], data["store_id"])
         item.price = data["price"]
         try:
             item.save_item()

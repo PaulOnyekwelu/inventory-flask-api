@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 from db import DBModel
 
 db = DBModel.db
@@ -10,10 +11,15 @@ class ItemModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     price = db.Column(db.Float(precision=2), nullable=False)
+    store_id = db.Column(db.Integer, db.ForeignKey(
+        "stores.id"), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    updated_at = db.Column(db.DateTime, default=datetime.now)
 
-    def __init__(self, name, price):
+    def __init__(self, name, price, store_id):
         self.name = name
         self.price = price
+        self.store_id = store_id
 
     def save_item(self):
         db.session.add(self)
@@ -28,6 +34,7 @@ class ItemModel(db.Model):
             "id": self.id,
             "name": self.name,
             "price": self.price,
+            "store_id": self.store_id,
         }
 
     @classmethod
