@@ -14,6 +14,7 @@ class Item(Resource):
     @jwt_required()
     def get(self, name):
         item = ItemModel.find_item_by_name(name)
+        print(dir(item))
         if item:
             return item.json()
         return {"msg": "item not found"}, 404
@@ -64,6 +65,4 @@ class ItemList(Resource):
     def get(self):
         result = []
         items = ItemModel.get_all_items()
-        for item in items:
-            result.append(item.json())
-        return result
+        return {"items": [item.json() for item in items]}

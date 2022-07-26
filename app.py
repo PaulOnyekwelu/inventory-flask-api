@@ -10,7 +10,7 @@ from utils.constants import DB_NAME
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{DB_NAME}"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = os.environ.get("SECRET_KEY")
 
@@ -25,5 +25,10 @@ api.add_resource(UserRegister, "/register")
 if __name__ == "__main__":
     from db import DBModel
 
-    DBModel.initialize(app)
+    db = DBModel(app)
+
+    @app.before_first_request
+    def create_tables():
+        db.create_tables()
+
     app.run(host='0.0.0.0', debug=True, port=8000)
