@@ -29,9 +29,14 @@ class StoreModel(db.Model):
             "updated_at": str(self.updated_at)
         }
 
+    def delete_store(self):
+        db.session.delete(self)
+        db.session.commit()
+
     @classmethod
     def find_store_by_name(cls, name):
         return cls.query.filter_by(name=name).first()
 
-    def get_store_items(self, name):
-        return {"items": [item.json() for item in self.items.query.all()]}
+    @classmethod
+    def get_all_stores(cls):
+        return cls.query.all()
